@@ -108,5 +108,27 @@ public class ColaTiquetes {
     public boolean estaVacia() {
         return frente == null;
     }
+    
+        // comprueba si un tiquete ya esta en la cola
+    public boolean contiene(int numero){
+
+        NodoTiquete actual;
+        actual=frente;
+
+        while(actual != null){
+            if(actual.getTiquete().getNumero() == numero){
+                return true;
+            }
+
+            actual =actual.getSiguiente();
+        }
+
+        return false;
+    }
+    
+        // permite recorrer la cola sin retirar los tiquetes
+    public NodoTiquete getFrente(){
+        return frente;
+    }
 
 }

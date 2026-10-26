@@ -110,4 +110,47 @@ public class Bus {
 
         return terminado;
     }
+    
+        // busca el tiquete en espera o en atencion
+    public boolean contieneTiquete(int numero){
+
+        if(enAtencion != null){
+            if(enAtencion.getNumero() == numero){
+                return true;
+            }
+        }
+
+        boolean encontrado;
+        encontrado=cola.contiene(numero);
+
+        return encontrado;
+    }
+        // permite consultar la cola del bus
+    public ColaTiquetes getCola(){
+        return cola;
+    }
+
+    // recupera una atencion guardada sin cambiar su hora
+    public boolean restaurarAtencion(Tiquete tiquete){
+
+        if(tiquete == null || enAtencion != null){
+            return false;
+        }
+
+        if(!tipo.equals(tiquete.getTipoBus())){
+            return false;
+        }
+
+        if(tiquete.getHoraAbordaje() < 0){
+            return false;
+        }
+
+        if(cola.contiene(tiquete.getNumero())){
+            return false;
+        }
+
+        enAtencion=tiquete;
+
+        return true;
+    }
 }
