@@ -9,7 +9,7 @@ package busnovatech;
  * @author grego
  */
 public class Tiquete {
-    
+
     private int numero;
     private String nombre;
     private String identificacion;
@@ -20,10 +20,9 @@ public class Tiquete {
     private String servicio;
     private String tipoBus;
 
-    
-        // crea el tiquete con los datos del cliente
+    // crea el tiquete con los datos del cliente
     public Tiquete(int numero, String nombre, String identificacion,
-            int edad, String moneda, String tipoBus){
+            int edad, String moneda, String tipoBus) {
 
         this.numero = numero;
         this.nombre = nombre;
@@ -38,63 +37,63 @@ public class Tiquete {
     }
 
     // consulta el numero del tiquete
-    public int getNumero(){
+    public int getNumero() {
         return numero;
     }
 
     // consulta el nombre del cliente
-    public String getNombre(){
+    public String getNombre() {
         return nombre;
     }
 
     // consulta la identificacion del cliente
-    public String getIdentificacion(){
+    public String getIdentificacion() {
         return identificacion;
     }
 
     // consulta la edad del cliente
-    public int getEdad(){
+    public int getEdad() {
         return edad;
     }
 
     // consulta la moneda elegida
-    public String getMoneda(){
+    public String getMoneda() {
         return moneda;
     }
 
     // consulta la hora de compra
-    public long getHoraCompra(){
+    public long getHoraCompra() {
         return horaCompra;
     }
 
     // consulta la hora de abordaje
-    public long getHoraAbordaje(){
+    public long getHoraAbordaje() {
         return horaAbordaje;
     }
 
     // consulta el servicio seleccionado
-    public String getServicio(){
+    public String getServicio() {
         return servicio;
     }
 
     // consulta el tipo de bus
-    public String getTipoBus(){
+    public String getTipoBus() {
         return tipoBus;
     }
 
     // recupera la hora original al cargar desde el archivo
-    public void setHoraCompra(long horaCompra){
+    public void setHoraCompra(long horaCompra) {
         this.horaCompra = horaCompra;
     }
 
     // actualiza la hora de abordaje
-    public void setHoraAbordaje(long horaAbordaje){
+    public void setHoraAbordaje(long horaAbordaje) {
         this.horaAbordaje = horaAbordaje;
     }
 
     // actualiza el servicio durante la atencion
-    public void setServicio(String servicio){
+    public void setServicio(String servicio) {
         this.servicio = servicio;
     }
-    
+
 }

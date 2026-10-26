@@ -11,8 +11,9 @@ import javax.swing.JOptionPane;
  * @author grego
  */
 public class GestionTiquetes {
-        // solicita los datos y crea un tiquete
-    public Tiquete crearTiquete(int numero){
+    // solicita los datos y crea un tiquete
+
+    public Tiquete crearTiquete(int numero) {
 
         String nombre;
         String identificacion;
@@ -22,31 +23,31 @@ public class GestionTiquetes {
 
         nombre = pedirTexto("Ingrese el nombre del cliente");
 
-        if(nombre == null){
+        if (nombre == null) {
             return null;
         }
 
         identificacion = pedirTexto("Ingrese la identificacion del cliente");
 
-        if(identificacion == null){
+        if (identificacion == null) {
             return null;
         }
 
         edad = pedirEdad();
 
-        if(edad == -1){
+        if (edad == -1) {
             return null;
         }
 
         moneda = pedirMoneda();
 
-        if(moneda == null){
+        if (moneda == null) {
             return null;
         }
 
         tipoBus = pedirTipoBus();
 
-        if(tipoBus == null){
+        if (tipoBus == null) {
             return null;
         }
 
@@ -58,54 +59,54 @@ public class GestionTiquetes {
     }
 
     // solicita un texto y verifica que no este vacio
-    private String pedirTexto(String mensaje){
+    private String pedirTexto(String mensaje) {
 
         String texto;
 
-        while(true){
+        while (true) {
             texto = JOptionPane.showInputDialog(mensaje);
 
-            if(texto == null){
+            if (texto == null) {
                 return null;
             }
 
             texto = texto.trim();
 
-            if(texto.equals("")){
+            if (texto.equals("")) {
                 JOptionPane.showMessageDialog(null,
                         "Debe completar este dato");
-            }else{
+            } else {
                 return texto;
             }
         }
     }
 
     // solicita una edad entera que no sea negativa
-    private int pedirEdad(){
+    private int pedirEdad() {
 
         String entrada;
         int edad;
 
-        while(true){
+        while (true) {
             entrada = JOptionPane.showInputDialog(
                     "Ingrese la edad del cliente");
 
-            if(entrada == null){
+            if (entrada == null) {
                 return -1;
             }
 
             entrada = entrada.trim();
 
-            try{
+            try {
                 edad = Integer.parseInt(entrada);
 
-                if(edad < 0){
+                if (edad < 0) {
                     JOptionPane.showMessageDialog(null,
                             "La edad no puede ser negativa");
-                }else{
+                } else {
                     return edad;
                 }
-            }catch(NumberFormatException error){
+            } catch (NumberFormatException error) {
                 JOptionPane.showMessageDialog(null,
                         "Ingrese una edad en numeros enteros");
             }
@@ -113,24 +114,24 @@ public class GestionTiquetes {
     }
 
     // permite elegir la moneda de pago
-    private String pedirMoneda(){
+    private String pedirMoneda() {
 
         String opcion;
         String moneda;
 
-        while(true){
+        while (true) {
             opcion = JOptionPane.showInputDialog(
                     "Seleccione la moneda\n"
                     + "1) Colones\n"
                     + "2) Dolares");
 
-            if(opcion == null){
+            if (opcion == null) {
                 return null;
             }
 
             opcion = opcion.trim();
 
-            switch(opcion){
+            switch (opcion) {
                 case "1":
                     moneda = "Colones";
                     break;
@@ -144,7 +145,7 @@ public class GestionTiquetes {
                     break;
             }
 
-            if(moneda != null){
+            if (moneda != null) {
                 return moneda;
             }
 
@@ -154,25 +155,25 @@ public class GestionTiquetes {
     }
 
     // permite elegir un unico tipo de bus
-    private String pedirTipoBus(){
+    private String pedirTipoBus() {
 
         String opcion;
         String tipoBus;
 
-        while(true){
+        while (true) {
             opcion = JOptionPane.showInputDialog(
                     "Seleccione el tipo de bus\n"
-                   + "1) Preferencial\n"
-                  + "2) Directo\n"
-                  + "3) Normal");
+                    + "1) Preferencial\n"
+                    + "2) Directo\n"
+                    + "3) Normal");
 
-            if(opcion == null){
+            if (opcion == null) {
                 return null;
             }
 
             opcion = opcion.trim();
 
-            switch(opcion){
+            switch (opcion) {
                 case "1":
                     tipoBus = "P";
                     break;
@@ -190,7 +191,7 @@ public class GestionTiquetes {
                     break;
             }
 
-            if(tipoBus != null){
+            if (tipoBus != null) {
                 return tipoBus;
             }
 

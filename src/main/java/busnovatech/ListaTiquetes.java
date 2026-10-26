@@ -70,4 +70,43 @@ public class ListaTiquetes {
     public NodoTiquete getPrimero(){
         return primero;
     }
+    
+    
+        // retira un tiquete de la lista por su numero
+    public Tiquete retirar(int numero){
+
+        NodoTiquete actual;
+        actual=primero;
+
+        NodoTiquete anterior;
+        anterior = null;
+
+        while(actual != null){
+            Tiquete tiquete;
+            tiquete= actual.getTiquete();
+
+            if(tiquete.getNumero() == numero){
+
+                if(anterior == null){
+                    primero =actual.getSiguiente();
+                }else{
+                    anterior.setSiguiente(actual.getSiguiente());
+                }
+
+                if(actual == ultimo){
+                    ultimo=anterior;
+                }
+
+                actual.setSiguiente(null);
+                return tiquete;
+            }
+
+            anterior = actual;
+            actual=actual.getSiguiente();
+        }
+
+        return null;
+    }
+    
+    
 }
