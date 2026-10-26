@@ -5,6 +5,7 @@
 package busnovatech;
 
 import javax.swing.JOptionPane;
+import java.io.IOException;
 
 /**
  *
@@ -15,27 +16,121 @@ public class BusNovaTech {
     public static void main(String[] args) {
         
         //Inicio del main
-                GestionTiquetes gestion;
+                 GestionTiquetes gestion;
         gestion= new GestionTiquetes();
 
-        Tiquete tiquete;
-        tiquete =gestion.crearTiquete(1);
+        ArchivoTiquetes archivo;
+        archivo =new ArchivoTiquetes();
 
-        if(tiquete != null){
-            String mensaje;
-            mensaje="Numero de tiquete: "+tiquete.getNumero()
-                    + "\nNombre: "+tiquete.getNombre()
-                 +"\nIdentificacion: " + tiquete.getIdentificacion()
-                 + "\nEdad: "+tiquete.getEdad()
-                       + "\nMoneda: " +tiquete.getMoneda()
-                   +"\nTipo de bus: "+ tiquete.getTipoBus()
-                    + "\nServicio: "+tiquete.getServicio()
-                    +"\nHora de abordaje: " + tiquete.getHoraAbordaje();
+        ListaTiquetes lista;
+        int siguienteNumero;
 
-            JOptionPane.showMessageDialog(null, mensaje);
+        try{
+            lista= archivo.cargar();
+            siguienteNumero =archivo.getSiguienteNumero();
 
-        }else{
-            JOptionPane.showMessageDialog(null, "Se cancelo la creacion del tiquete");
+        }catch(IOException error){
+            JOptionPane.showMessageDialog(null, "No se pudieron cargar los tiquetes: "+error.getMessage());
+            return;
+        }
+
+        boolean continuar;
+        continuar=true;
+
+        while(continuar){
+            String opcion;
+            opcion= JOptionPane.showInputDialog(
+                    "TIQUETES\n"
+                 + "1) Crear tiquete\n"
+                       +"2) Consultar tiquetes\n"
+                    + "3) Salir");
+
+            if(opcion == null){
+                continuar=false;
+
+            }else{
+                opcion=opcion.trim();
+
+                switch(opcion){
+                    case "1":
+                        if(siguienteNumero == Integer.MAX_VALUE){
+                            JOptionPane.showMessageDialog(null, "Se alcanzo el limite de numeros de tiquete");
+                            break;
+                        }
+
+                        Tiquete tiquete;
+                        tiquete = gestion.crearTiquete(siguienteNumero);
+
+                        if(tiquete == null){
+                            JOptionPane.showMessageDialog(null, "Se cancelo la creacion del tiquete");
+                            break;
+                        }
+
+                        boolean agregado;
+                        agregado=lista.agregar(tiquete);
+
+                        if(!agregado){
+                            JOptionPane.showMessageDialog(null, "No se pudo agregar el tiquete");
+                            break;
+                        }
+
+                        int nuevoConsecutivo;
+                        nuevoConsecutivo = siguienteNumero + 1;
+
+                        try{
+                            archivo.guardar(lista, nuevoConsecutivo);
+                            siguienteNumero=nuevoConsecutivo;
+
+                            JOptionPane.showMessageDialog(null, "Tiquete guardado con el numero "+tiquete.getNumero());
+
+                        }catch(IOException error){
+                            JOptionPane.showMessageDialog(null, "No se pudo completar el guardado: "+error.getMessage()+"\nEl programa se cerrara para revisar el archivo");
+                            return;
+                        }
+                        break;
+
+                    case "2":
+                        NodoTiquete actual;
+                        actual= lista.getPrimero();
+
+                        if(actual == null){
+                            JOptionPane.showMessageDialog(null, "No hay tiquetes registrados");
+
+                        }else{
+                            String mensaje;
+                            mensaje="TIQUETES REGISTRADOS\n";
+
+                            while(actual != null){
+                                Tiquete guardado;
+                                guardado =actual.getTiquete();
+
+                                mensaje+= "\nNumero: "+guardado.getNumero()
+                                        + "\nNombre: "+guardado.getNombre()
+                                     +"\nIdentificacion: " + guardado.getIdentificacion()
+                                     + "\nEdad: "+guardado.getEdad()
+                                          + "\nMoneda: " +guardado.getMoneda()
+                                      +"\nTipo de bus: "+ guardado.getTipoBus()
+                                        + "\nServicio: "+guardado.getServicio()
+                                        +"\nHora de compra: " + guardado.getHoraCompra()
+                                     + "\nHora de abordaje: "+guardado.getHoraAbordaje()
+                                         +"\n--------------------\n";
+
+                                actual=actual.getSiguiente();
+                            }
+
+                            JOptionPane.showMessageDialog(null, mensaje);
+                        }
+                        break;
+
+                    case "3":
+                        continuar = false;
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(null, "Seleccione una opcion del 1 al 3");
+                        break;
+                }
+            }
         }
         //Fin del main
     }
