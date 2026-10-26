@@ -4,6 +4,8 @@
 
 package busnovatech;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author grego
@@ -11,6 +13,30 @@ package busnovatech;
 public class BusNovaTech {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        //Inicio del main
+                GestionTiquetes gestion;
+        gestion= new GestionTiquetes();
+
+        Tiquete tiquete;
+        tiquete =gestion.crearTiquete(1);
+
+        if(tiquete != null){
+            String mensaje;
+            mensaje="Numero de tiquete: "+tiquete.getNumero()
+                    + "\nNombre: "+tiquete.getNombre()
+                 +"\nIdentificacion: " + tiquete.getIdentificacion()
+                 + "\nEdad: "+tiquete.getEdad()
+                       + "\nMoneda: " +tiquete.getMoneda()
+                   +"\nTipo de bus: "+ tiquete.getTipoBus()
+                    + "\nServicio: "+tiquete.getServicio()
+                    +"\nHora de abordaje: " + tiquete.getHoraAbordaje();
+
+            JOptionPane.showMessageDialog(null, mensaje);
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Se cancelo la creacion del tiquete");
+        }
+        //Fin del main
     }
 }
