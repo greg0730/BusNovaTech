@@ -7,7 +7,7 @@ package busnovatech;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * solicita y valida los datos del cliente
  * @author grego
  */
 public class GestionTiquetes {

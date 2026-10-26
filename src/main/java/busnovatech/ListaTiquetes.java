@@ -5,7 +5,7 @@
 package busnovatech;
 
 /**
- *
+ * mantiene el registro de tiquetes pendientes
  * @author grego
  */
 public class ListaTiquetes {

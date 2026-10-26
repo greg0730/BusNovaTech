@@ -5,7 +5,7 @@
 package busnovatech;
 
 /**
- *
+ * conecta un tiquete con el siguiente nodo
  * @author grego
  */
 public class NodoTiquete {

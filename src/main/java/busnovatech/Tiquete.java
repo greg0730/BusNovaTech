@@ -5,7 +5,7 @@
 package busnovatech;
 
 /**
- *
+ * guarda los datos de un tiquete
  * @author grego
  */
 public class Tiquete {
