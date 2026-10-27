@@ -87,6 +87,41 @@ public class ColaTiquetes {
         return tiquete;
     }
 
+    // retira un tiquete especifico de la fila
+    public Tiquete retirar(int numero){
+
+        NodoTiquete actual;
+        actual=frente;
+
+        NodoTiquete anterior;
+        anterior = null;
+
+        while(actual != null){
+            Tiquete tiquete;
+            tiquete=actual.getTiquete();
+
+            if(tiquete.getNumero() == numero){
+                if(anterior == null){
+                    frente =actual.getSiguiente();
+                }else{
+                    anterior.setSiguiente(actual.getSiguiente());
+                }
+
+                if(actual == ultimo){
+                    ultimo=anterior;
+                }
+
+                actual.setSiguiente(null);
+                return tiquete;
+            }
+
+            anterior=actual;
+            actual = actual.getSiguiente();
+        }
+
+        return null;
+    }
+
     // cuenta los tiquetes que esperan
     public int contar() {
 
