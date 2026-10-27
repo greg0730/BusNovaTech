@@ -30,3 +30,6 @@ replay_pid*
 /prueba-integracion/
 /guardado-pendiente/
 /*.recuperando
+/config.json
+/config.tmp
+/datos-terminal/
