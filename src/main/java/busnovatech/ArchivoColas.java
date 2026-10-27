@@ -18,6 +18,17 @@ public class ArchivoColas {
     
         private String contenido;
     private int posicion;
+        private Path carpeta;
+
+    // usa la carpeta habitual del programa
+    public ArchivoColas(){
+        carpeta=Path.of(".");
+    }
+
+    // permite elegir donde guardar los archivos
+    public ArchivoColas(Path carpeta){
+        this.carpeta = carpeta;
+    }
 
     // guarda los buses y sus tiquetes pendientes
     public void guardar(ListaBuses buses, ListaTiquetes pendientes) throws IOException{
@@ -92,10 +103,10 @@ public class ArchivoColas {
         comprobarPendientes(pendientes, registrados);
 
         Path temporal;
-        temporal=Path.of("colas.tmp");
+        temporal=carpeta.resolve("colas.tmp");
 
         Path archivo;
-        archivo = Path.of("colas.json");
+        archivo = carpeta.resolve("colas.json");
 
         Files.writeString(temporal, texto, StandardCharsets.UTF_8);
         Files.move(temporal, archivo, StandardCopyOption.REPLACE_EXISTING);
@@ -174,7 +185,7 @@ public class ArchivoColas {
         }
 
         Path archivo;
-        archivo=Path.of("colas.json");
+        archivo=carpeta.resolve("colas.json");
 
         try{
             contenido =Files.readString(archivo, StandardCharsets.UTF_8);

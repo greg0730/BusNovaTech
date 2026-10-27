@@ -13,6 +13,7 @@ import java.nio.file.StandardCopyOption;
 
 /**
  * guarda y recupera los tiquetes en json
+ *
  * @author grego
  */
 public class ArchivoTiquetes {
@@ -20,6 +21,17 @@ public class ArchivoTiquetes {
     private String contenido;
     private int posicion;
     private int siguienteNumero;
+    private Path carpeta;
+
+    // usa la carpeta habitual del programa
+    public ArchivoTiquetes() {
+        carpeta = Path.of(".");
+    }
+
+    // permite elegir donde guardar los archivos
+    public ArchivoTiquetes(Path carpeta) {
+        this.carpeta = carpeta;
+    }
 
     // convierte los datos de un tiquete a texto json
     public String convertirJson(Tiquete tiquete) {
@@ -89,16 +101,16 @@ public class ArchivoTiquetes {
     // guarda los tiquetes y el siguiente numero disponible
     public void guardar(ListaTiquetes lista, int siguienteNumero) throws IOException {
 
-        if(lista == null || siguienteNumero < 1){
+        if (lista == null || siguienteNumero < 1) {
             throw new IOException("La lista o el consecutivo son incorrectos");
         }
 
         NodoTiquete revisar;
-        revisar=lista.getPrimero();
+        revisar = lista.getPrimero();
 
-        while(revisar != null){
+        while (revisar != null) {
             validarTiquete(revisar.getTiquete());
-            if(revisar.getTiquete().getNumero() >= siguienteNumero){
+            if (revisar.getTiquete().getNumero() >= siguienteNumero) {
                 throw new IOException("El consecutivo debe superar los numeros guardados");
             }
             revisar = revisar.getSiguiente();
@@ -132,10 +144,10 @@ public class ArchivoTiquetes {
         texto += "}\n";
 
         Path temporal;
-        temporal = Path.of("tiquetes.tmp");
+        temporal = carpeta.resolve("tiquetes.tmp");
 
         Path archivo;
-        archivo = Path.of("tiquetes.json");
+        archivo = carpeta.resolve("tiquetes.json");
 
         Files.writeString(temporal, texto, StandardCharsets.UTF_8);
         Files.move(temporal, archivo, StandardCopyOption.REPLACE_EXISTING);
@@ -353,7 +365,7 @@ public class ArchivoTiquetes {
     public ListaTiquetes cargar() throws IOException {
 
         Path archivo;
-        archivo = Path.of("tiquetes.json");
+        archivo = carpeta.resolve("tiquetes.json");
 
         ListaTiquetes lista;
         lista = new ListaTiquetes();
@@ -549,28 +561,28 @@ public class ArchivoTiquetes {
     }
 
     // revisa los datos antes de escribir el archivo
-    private void validarTiquete(Tiquete tiquete) throws IOException{
+    private void validarTiquete(Tiquete tiquete) throws IOException {
 
-        if(tiquete == null){
+        if (tiquete == null) {
             throw new IOException("No se puede guardar un tiquete vacio");
         }
-        if(tiquete.getNumero() < 1 || tiquete.getEdad() < 0){
+        if (tiquete.getNumero() < 1 || tiquete.getEdad() < 0) {
             throw new IOException("El numero o la edad son incorrectos");
         }
-        if(tiquete.getNombre() == null || tiquete.getNombre().trim().equals("")
-                || tiquete.getIdentificacion() == null || tiquete.getIdentificacion().trim().equals("")){
+        if (tiquete.getNombre() == null || tiquete.getNombre().trim().equals("")
+                || tiquete.getIdentificacion() == null || tiquete.getIdentificacion().trim().equals("")) {
             throw new IOException("Falta el nombre o la identificacion");
         }
-        if(!"Colones".equals(tiquete.getMoneda()) && !"Dolares".equals(tiquete.getMoneda())){
+        if (!"Colones".equals(tiquete.getMoneda()) && !"Dolares".equals(tiquete.getMoneda())) {
             throw new IOException("La moneda es incorrecta");
         }
-        if(!"P".equals(tiquete.getTipoBus()) && !"D".equals(tiquete.getTipoBus()) && !"N".equals(tiquete.getTipoBus())){
+        if (!"P".equals(tiquete.getTipoBus()) && !"D".equals(tiquete.getTipoBus()) && !"N".equals(tiquete.getTipoBus())) {
             throw new IOException("El tipo de bus es incorrecto");
         }
-        if(tiquete.getHoraCompra() < 0 || tiquete.getHoraAbordaje() < -1){
+        if (tiquete.getHoraCompra() < 0 || tiquete.getHoraAbordaje() < -1) {
             throw new IOException("Hay una hora incorrecta");
         }
-        if(tiquete.getServicio() == null || tiquete.getServicio().trim().equals("")){
+        if (tiquete.getServicio() == null || tiquete.getServicio().trim().equals("")) {
             throw new IOException("Falta el servicio del tiquete");
         }
     }

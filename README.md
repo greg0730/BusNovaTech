@@ -1,54 +1,76 @@
 # BusNovaTech
-Proyecto de Estructura de Datos
 
-## Estado actual
-Esta version contiene el modulo de tiquetes y un menu de pruebas. Todavia no es el sistema completo.
-Responsable de este modulo: Gregory Alpizar Montes
-Pendiente completar los nombres de los demas integrantes y el numero de grupo antes de entregar.
+Proyecto final del curso Estructura de Datos. Esta entrega contiene un avance funcional de tiquetes, buses y colas. El sistema completo sigue en desarrollo.
 
-## Ejecucion
-Abrir pom.xml como proyecto Maven en NetBeans y usar JDK 25, como indica el pom.xml.
-Ejecutar BusNovaTech. Por ahora abre PruebaTiquetes; al integrar el menu general se cambia esa llamada.
-PruebaTiquetes tambien se puede ejecutar directamente con Run File.
-No se necesitan librerias externas.
+## Grupo e integrantes
 
-## Clases y metodos
-- Tiquete: constructor con numero, nombre, identificacion, edad, moneda y tipo de bus; getters para consultar datos y setters para restaurar la compra, registrar abordaje y servicio
-- GestionTiquetes: crearTiquete solicita los datos; pedirTexto, pedirEdad, pedirMoneda y pedirTipoBus validan las entradas; cancelar devuelve null y no crea el tiquete
-- NodoTiquete: guarda un tiquete y su siguiente nodo; getTiquete, getSiguiente y setSiguiente permiten recorrer la estructura
-- ListaTiquetes: agregar rechaza numeros repetidos; buscar consulta por numero; retirar devuelve el tiquete retirado o null; getPrimero permite recorrer la lista
-- ArchivoTiquetes: guardar escribe la lista y el consecutivo; cargar reconstruye la lista; getSiguienteNumero devuelve el consecutivo leido al cargar; convertirJson y escaparTexto preparan el texto; validarTiquete revisa datos antes de guardar
-- Los metodos privados saltarEspacios, esperar, leerTexto, leerUnicode, leerNumero, leerCampo, verSiguiente, leerEntero y leerTiquete interpretan el archivo
-- PruebaTiquetes: main permite crear, consultar y retirar tiquetes de prueba
-- BusNovaTech: main inicia temporalmente PruebaTiquetes
+- Número de grupo: pendiente de completar
+- Gregory Alpízar Montes
+- Demás integrantes que participaron en esta entrega: pendiente de completar
 
-## Archivos y datos
-Se usa tiquetes.json en la carpeta desde donde se ejecuta el programa. tiquetes.tmp es el archivo temporal del guardado. Ambos estan excluidos de Git para que cada computadora conserve sus datos.
-Si no existe tiquetes.json, se inicia una lista vacia con consecutivo 1. Si existe pero esta danado, se informa el error y no se inicia el menu.
-El lector manual espera los campos en el orden que produce guardar; no es un lector general de cualquier JSON.
-Las horas se guardan en milisegundos. Un tiquete nuevo tiene servicio NA y hora de abordaje -1.
-Monedas: Colones o Dolares. Tipos de bus: P, D o N.
-Retirar un tiquete no reduce el consecutivo. La lista en memoria se persiste al llamar guardar.
-El guardado usa un archivo temporal y reemplazo; no garantiza recuperacion ante cualquier corte de energia.
+## Requisitos y ejecución
 
-## Integracion pendiente
-- Configuracion, login y menu general
-- Buses, colas, asignacion y recuperacion de sus posiciones
-- Atencion, pago, historial y tipo de cambio
-- Rutas y los demas requisitos del proyecto
+- Java JDK 25 y NetBeans con soporte para proyectos Maven
+- Abrir la carpeta del proyecto o su archivo `pom.xml` en NetBeans
+- Ejecutar `BusNovaTech` con Run Project
+- No se necesitan librerías externas para este avance
 
-## Acuerdos para integrar
-Usar la misma clase Tiquete entre modulos, sin crear otra copia con campos diferentes.
-ListaTiquetes es el registro de pendientes, no la cola de un bus. Encolar no debe retirar el tiquete del registro pendiente.
-Al cargar las colas, buscar los tiquetes por numero en la lista ya cargada y conservar el orden almacenado por el modulo de colas.
-Atencion debe actualizar servicio y hora de abordaje, guardar el historial cuando corresponda y coordinar el retiro de cola y pendientes con el guardado de todos los archivos.
-No usar la opcion de retiro de prueba como flujo de pago real: no genera historial ni actualiza colas.
-Los nombres de metodos y el manejo de errores entre modulos se deben acordar al recibir las clases de los companeros.
+Actualmente `BusNovaTech` abre `PruebaIntegracion`, un menú temporal con opciones para crear y buscar tiquetes, consultar buses y ver un resumen. No requiere credenciales todavía porque el login está pendiente.
 
-## Comprobaciones manuales
-1. Crear un tiquete y cancelar otra captura: solo debe existir el primero
-2. Cerrar y abrir: se conservan datos y consecutivo
-3. Retirar un tiquete intermedio: se conservan los demas
-4. Retirar primero, ultimo y unico; crear otro despues de vaciar la lista
-5. Escribir texto en edad o una opcion fuera del menu: se muestra el error
-6. Usar nombres con tildes, comillas y barra invertida; cerrar y abrir para comprobarlos
+La prueba usa cuatro buses definidos en el código: uno preferencial, uno directo y dos normales. Esa configuración es únicamente para la prueba; la cantidad dinámica de buses es un requisito pendiente para el sistema completo.
+
+## Implementado en este avance
+
+- Registro de nombre, identificación, edad, moneda y tipo de bus con validaciones y opción de cancelar
+- Número consecutivo, hora de compra, hora de abordaje inicial en -1 y servicio inicial NA
+- Lista de pendientes y colas de tiquetes mediante nodos
+- Asignación por tipo de bus y, para buses normales, por cantidad de personas en espera
+- Inicio automático de atención cuando el inspector está libre y la cola está vacía
+- Consulta de buses, personas en atención y orden de espera
+- Búsqueda de tiquetes pendientes y resumen de la prueba
+- Guardado y carga de tiquetes y posiciones de las colas en archivos JSON
+- Preparación y recuperación de un guardado interrumpido de ambos archivos, si la preparación está completa
+
+## Pendiente
+
+- Configuración dinámica de terminal, buses y usuarios en `config.json`, e inicio de sesión
+- Integración con un menú general definitivo
+- Flujo completo de abordar, selección de servicio, pago o rechazo de pago y marcado de atendido
+- Registro y consulta del historial en `atendidos.json`, con terminal y bus
+- Consulta en línea al servicio del Banco Central para el tipo de cambio
+- Grafo dirigido ponderado, rutas más cortas y persistencia en `grafo.json`
+- Integración y pruebas del sistema completo con las partes de los compañeros
+- Completar datos del grupo, integrantes y correcciones de entregas anteriores según corresponda
+
+## Archivos de datos
+
+La prueba de integración utiliza la carpeta `prueba-integracion` en la carpeta desde la cual se ejecuta el proyecto. Allí se guardan `tiquetes.json` y `colas.json`. Dentro de `guardado-pendiente` se preparan los archivos antes de instalarlos. Si una preparación completa queda pendiente, al iniciar se intenta terminar el guardado. Una preparación incompleta detiene la carga e informa el error.
+
+Estos datos de prueba están excluidos de Git. Use una sola ejecución sobre la misma carpeta. La recuperación no garantiza resolver daños físicos, borrados o todos los cortes de energía.
+
+Los lectores JSON actuales esperan el orden de campos que producen los métodos de guardado; no son lectores generales. Las horas se guardan como milisegundos y en el menú se muestran con la zona horaria de la computadora.
+
+`PruebaTiquetes` y otras clases de prueba anteriores son independientes. Su opción de retirar no coordina el historial ni la cola y no debe usarse como flujo de pago sobre los datos integrados.
+
+## Clases y métodos principales
+
+- `Tiquete`: guarda los datos del cliente, número, horas, servicio y tipo de bus; sus métodos de consulta y actualización permiten leer y restaurar los datos
+- `GestionTiquetes`: `crearTiquete` solicita los datos; los métodos de captura validan texto, edad, moneda y tipo de bus
+- `NodoTiquete` y `ListaTiquetes`: enlazan y mantienen los pendientes; `agregar`, `buscar` y `retirar` administran la lista
+- `ColaTiquetes`: `agregar`, `consultar`, `retirar` y `contar` administran la espera; `contiene` busca por número
+- `Bus`: administra su cola y el tiquete en atención; `iniciarAtencion`, `finalizarAtencion` y `restaurarAtencion` gestionan ese estado
+- `NodoBus` y `ListaBuses`: enlazan los buses; `agregar`, `buscar` y `seleccionar` permiten registrarlos y escoger uno
+- `GestionBuses`: `asignar` escoge un bus y puede iniciar atención; `buscarBusDelTiquete` lo localiza y `abordar` inicia atención en un bus
+- `ArchivoTiquetes`: `guardar` y `cargar` escriben y leen los pendientes y el siguiente número
+- `ArchivoColas`: `guardar` y `cargar` conservan y recuperan los buses, el tiquete en atención y el orden de espera
+- `ArchivoEstado`: `guardar` prepara ambos archivos y `cargar` recupera un guardado pendiente antes de leer el estado
+- `BusNovaTech`: inicia el menú temporal de integración
+- `PruebaIntegracion`: contiene el menú y consultas de este avance
+- `PruebaGuardadoEstado`: ejecuta comprobaciones del guardado en una carpeta temporal separada
+- `PruebaCola`, `PruebaBus`, `PruebaGuardadoColas` y `PruebaTiquetes`: pruebas individuales de clases y funciones
+
+## Comprobación
+
+Para la prueba automática, ejecutar `PruebaGuardadoEstado` con Run File. El resultado esperado en Output es `PRUEBAS COMPLETADAS: 43`. La prueba crea una carpeta temporal independiente y muestra su ubicación; no utiliza la carpeta `prueba-integracion`.
+
+En el menú de integración se puede crear un tiquete, revisar su bus y cola, cerrar el programa y volver a abrirlo para comprobar que se conservan los datos. Cancelar durante la captura no debe crear un tiquete.

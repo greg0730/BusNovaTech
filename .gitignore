@@ -27,3 +27,6 @@ replay_pid*
 /tiquetes.tmp
 /colas.json
 /colas.tmp
+/prueba-integracion/
+/guardado-pendiente/
+/*.recuperando

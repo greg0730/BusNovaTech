@@ -11,6 +11,6 @@ public class BusNovaTech {
 
     // abre temporalmente el menu de pruebas
     public static void main(String[] args){
-        PruebaTiquetes.main(args);
+        PruebaIntegracion.main(args);
     }
 }
